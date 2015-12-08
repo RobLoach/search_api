@@ -9,13 +9,14 @@
  * Views filter handler base class for handling all "normal" cases.
  */
 class SearchApiViewsHandlerFilterDate extends SearchApiViewsHandlerFilter {
-  
+
   /**
    * Add a "widget type" option.
    */
   public function option_definition() {
     return parent::option_definition() + array(
       'widget_type' => array('default' => 'default'),
+      'year_range' => array('default' => '-3:+3'),
     );
   }
 
@@ -39,6 +40,24 @@ class SearchApiViewsHandlerFilterDate extends SearchApiViewsHandlerFilter {
         '#default_value' => $this->options['widget_type'],
         '#options' => $widget_options,
       );
+    }
+
+    if (module_exists('date_api')) {
+      $form['year_range'] = array(
+        '#type' => 'date_year_range',
+        '#default_value' => $this->options['year_range'],
+      );
+    }
+  }
+
+  /**
+   * Validate extra options.
+   */
+  public function extra_options_validate($form, &$form_state) {
+    if (isset($form_state['values']['options']['year_range'])) {
+      if (!preg_match('/^(?:\-[0-9]{1,4}|[0-9]{4}):(?:[\+|\-][0-9]{1,4}|[0-9]{4})$/', $form_state['values']['options']['year_range'])) {
+        form_error($form['year_range'], t('Date year range must be in the format -9:+9, 2005:2010, -9:2010, or 2005:+9'));
+      }
     }
   }
 
