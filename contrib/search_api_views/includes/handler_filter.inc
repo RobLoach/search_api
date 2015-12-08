@@ -69,7 +69,7 @@ class SearchApiViewsHandlerFilter extends views_handler_filter {
         ':input[name="options[operator]"],dummy-not-empty' => array('!value' => 'not empty'),
       );
     }
-    elseif (!empty($this->options['expose']['use_operator'])) {
+    elseif (!empty($this->options['expose']['use_operator']) && !empty($this->options['expose']['operator_id'])) {
       $name = $this->options['expose']['operator_id'];
       $form['value']['#states']['visible'] = array(
         ':input[name="' . $name . '"],dummy-empty' => array('!value' => 'empty'),

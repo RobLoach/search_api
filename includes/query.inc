@@ -132,11 +132,14 @@ interface SearchApiQueryInterface {
    *   The value the field should have (or be related to by the operator).
    * @param string $operator
    *   The operator to use for checking the constraint. The following operators
-   *   are supported for primitive types: "=", "<>", "<", "<=", ">=", ">". They
-   *   have the same semantics as the corresponding SQL operators.
+   *   are supported for primitive types: "=", "<>", "<", "<=", ">=", ">",
+   *   "between". They have the same semantics as the corresponding SQL
+   *   operators.
    *   If $field is a fulltext field, $operator can only be "=" or "<>", which
    *   are in this case interpreted as "contains" or "doesn't contain",
    *   respectively.
+   *   The "between" operator expects the value to be an array with a min and
+   *   max value.
    *   If $value is NULL, $operator also can only be "=" or "<>", meaning the
    *   field must have no or some value, respectively.
    *
@@ -893,11 +896,14 @@ interface SearchApiQueryFilterInterface {
    *   The value the field should have (or be related to by the operator).
    * @param string $operator
    *   The operator to use for checking the constraint. The following operators
-   *   are supported for primitive types: "=", "<>", "<", "<=", ">=", ">". They
-   *   have the same semantics as the corresponding SQL operators.
+   *   are supported for primitive types: "=", "<>", "<", "<=", ">=", ">",
+   *   "between". They have the same semantics as the corresponding SQL
+   *   operators.
    *   If $field is a fulltext field, $operator can only be "=" or "<>", which
    *   are in this case interpreted as "contains" or "doesn't contain",
    *   respectively.
+   *   The "between" operator expects the value to be an array with a min and
+   *   max value.
    *   If $value is NULL, $operator also can only be "=" or "<>", meaning the
    *   field must have no or some value, respectively.
    *
